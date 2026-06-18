@@ -9,153 +9,300 @@
 </head>
 <body class="bg-slate-900 text-slate-100 font-sans antialiased">
 
-    <header class="bg-slate-800 border-b border-slate-700 sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-            <div class="flex items-center space-x-3">
-                <i class="fa-solid fa-shield-halved text-emerald-400 text-2xl"></i>
-                <span class="font-bold text-lg tracking-wide uppercase">ИБ Обучение</span>
-            </div>
-            <nav class="flex space-x-1">
-                <button onclick="switchTab('dashboard')" id="btn-dashboard" class="px-4 py-2 rounded-md text-sm font-medium bg-emerald-600 text-white transition cursor-pointer">
-                    <i class="fa-solid fa-book-open mr-2"></i>Обучение
-                </button>
-                <button onclick="switchTab('crypto')" id="btn-crypto" class="px-4 py-2 rounded-md text-sm font-medium text-slate-300 hover:bg-slate-700 hover:text-white transition cursor-pointer">
-                    <i class="fa-solid fa-key mr-2"></i>Тренажер
-                </button>
-            </nav>
-            <div class="flex items-center space-x-3">
-                <span class="text-sm text-slate-400 hidden sm:inline">Студент: ФИО</span>
-                <div class="w-8 h-8 rounded-full bg-emerald-500 flex items-center justify-center font-bold text-slate-950">Н</div>
-            </div>
-        </div>
-    </header>
-
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        
-        <div id="tab-dashboard" class="space-y-8">
-            <div class="border-l-4 border-emerald-500 pl-4">
-                <h1 class="text-3xl font-extrabold tracking-tight">Курс: Методы защиты информации</h1>
-                <p class="text-slate-400 mt-1">Изучайте лекционные материалы и проходите автоматизированное тестирование.</p>
-            </div>
-
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                
-                <div class="lg:col-span-2 bg-slate-800 border border-slate-700 rounded-xl p-6 shadow-xl">
-                    <div class="flex items-center justify-between border-b border-slate-700 pb-4 mb-4">
-                        <span class="text-xs font-semibold uppercase tracking-wider px-2.5 py-0.5 rounded bg-emerald-500/10 text-emerald-400">Модуль 1. Симметричное шифрование</span>
-                        <span class="text-sm text-slate-400"><i class="fa-regular fa-clock mr-1"></i> 15 мин</span>
-                    </div>
-                    <h2 class="text-2xl font-bold mb-4 text-white">Лекция 1.1: Классические шифры и шифр Цезаря</h2>
-                    <div class="prose prose-invert text-slate-300 space-y-4 leading-relaxed">
-                        <p>**Шифр Цезаря** — это один из самых древних и простых методов симметричного шифрования, относящийся к шифрам подстановки. Он назван в честь римского императора Гая Юлия Цезаря, который использовал его для секретной переписки.</p>
-                        <p>Принцип работы заключается в том, что каждый символ в тексте заменяется другим символом, смещенным по алфавиту на фиксиственное количество позиций (шаг или ключ шифра).</p>
-                        <blockquote class="border-l-4 border-slate-600 pl-4 italic text-slate-400 my-4 bg-slate-800/50 py-2 pr-2">
-                            Например, при сдвиге (ключе) равном 3, буква "А" заменяется на "Г", "Б" на "Д", и так далее.
-                        </blockquote>
-                        <p>В современных реалиях шифр абсолютно ненадежен, так как легко взламывается методом простого перебора (криптоанализ методом brute force) или с помощью частотного анализа, ведь вариантов сдвига всего на один меньше, чем букв в алфавите.</p>
-                    </div>
+    <div id="auth-screen" class="fixed inset-0 bg-slate-950 z-[100] flex items-center justify-center p-4">
+        <div class="bg-slate-800 border border-slate-700 w-full max-w-md rounded-2xl p-6 shadow-2xl space-y-6">
+            
+            <div class="text-center space-y-2">
+                <div class="inline-flex p-3 bg-emerald-500/10 rounded-xl text-emerald-400 text-3xl mb-1">
+                    <i class="fa-solid fa-shield-halved"></i>
                 </div>
-
-                <div class="space-y-6">
-                    <div class="bg-slate-800 border border-slate-700 rounded-xl p-6 shadow-xl">
-                        <h3 class="text-lg font-bold mb-3 flex items-center"><i class="fa-solid fa-chart-line text-emerald-400 mr-2"></i>Ваш прогресс</h3>
-                        <div class="w-full bg-slate-700 rounded-full h-2.5 mb-2">
-                            <div id="progress-bar" class="bg-emerald-500 h-2.5 rounded-full transition-all duration-500" style="width: 35%"></div>
-                        </div>
-                        <p id="progress-text" class="text-xs text-slate-400">Завершено модулей: 1 из 3 (35%)</p>
-                    </div>
-
-                    <div id="test-start-card" class="bg-slate-800 border border-slate-700 rounded-xl p-6 shadow-xl relative overflow-hidden">
-                        <div class="absolute top-0 right-0 p-3 opacity-10 text-6xl text-emerald-400"><i class="fa-solid fa-graduation-cap"></i></div>
-                        <h3 class="text-lg font-bold mb-2">Проверка знаний</h3>
-                        <p class="text-sm text-slate-400 mb-4">Пройдите автоматизированный тест по теме "Классические криптосистемы".</p>
-                        <ul class="text-xs text-slate-400 space-y-2 mb-4">
-                            <li><i class="fa-solid fa-check text-emerald-400 mr-1"></i> Кол-во вопросов: 3</li>
-                            <li><i class="fa-solid fa-check text-emerald-400 mr-1"></i> Ограничение: Нет</li>
-                        </ul>
-                        <button onclick="startTest()" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-medium py-2.5 px-4 rounded-lg transition active:scale-[0.98] cursor-pointer text-center block">
-                            Начать тестирование
-                        </button>
-                    </div>
-
-                    <div id="test-execution-card" class="hidden bg-slate-800 border border-emerald-500 rounded-xl p-6 shadow-xl space-y-4">
-                        <div class="flex justify-between items-center border-b border-slate-700 pb-2">
-                            <h3 class="font-bold text-emerald-400">Тестирование идет</h3>
-                            <span id="question-counter" class="text-xs bg-slate-700 px-2 py-1 rounded">Вопрос 1 из 3</span>
-                        </div>
-                        <p id="question-text" class="text-sm font-medium text-white">Загрузка вопроса...</p>
-                        <div id="answers-container" class="space-y-2 text-sm">
-                            </div>
-                        <button onclick="nextQuestion()" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-medium py-2 px-4 rounded-lg transition cursor-pointer">
-                            Ответить
-                        </button>
-                    </div>
-
-                    <div id="test-result-card" class="hidden bg-slate-800 border border-slate-700 rounded-xl p-6 shadow-xl text-center space-y-3">
-                        <div class="w-12 h-12 bg-emerald-500/20 text-emerald-400 rounded-full flex items-center justify-center mx-auto text-xl">
-                            <i class="fa-solid fa-award"></i>
-                        </div>
-                        <h3 class="text-lg font-bold text-white">Тест завершен!</h3>
-                        <p class="text-sm text-slate-300">Ваш результат: <span class="font-bold text-emerald-400" id="test-score">0%</span></p>
-                        <p class="text-xs text-slate-400">Оценка автоматически внесена в электронный журнал успеваемости.</p>
-                        <button onclick="resetTest()" class="text-xs text-emerald-400 hover:underline cursor-pointer">Пройти еще раз</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div id="tab-crypto" class="hidden space-y-8">
-            <div class="border-l-4 border-indigo-500 pl-4">
-                <h1 class="text-3xl font-extrabold tracking-tight">Лабораторный тренажер</h1>
-                <p class="text-slate-400 mt-1">Интерактивная визуализация работы алгоритмов шифрования данных.</p>
+                <h2 id="auth-title" class="text-2xl font-extrabold text-white tracking-tight">Вход в систему</h2>
+                <p id="auth-subtitle" class="text-sm text-slate-400">Для доступа к обучающим материалам авторизуйтесь</p>
             </div>
 
-            <div class="bg-slate-800 border border-slate-700 rounded-xl p-6 shadow-xl max-w-3xl mx-auto space-y-6">
-                <div class="flex items-center space-x-3 border-b border-slate-700 pb-4">
-                    <i class="fa-solid fa-arrow-rotate-right text-indigo-400 text-xl"></i>
-                    <h2 class="text-xl font-bold">Шифр Цезаря (Алгоритм сдвига)</h2>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-xs font-semibold uppercase text-slate-400 mb-2">Шаг сдвига (Ключ)</label>
-                        <input type="number" id="crypto-key" value="3" min="1" max="32" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-indigo-500">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-semibold uppercase text-slate-400 mb-2">Режим работы</label>
-                        <select id="crypto-mode" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-indigo-500">
-                            <option value="encrypt">Зашифровать текст</option>
-                            <option value="decrypt">Расшифровать текст</option>
-                        </select>
+            <div class="space-y-4">
+                <div id="name-field-container" class="hidden">
+                    <label class="block text-xs font-semibold uppercase text-slate-400 mb-1.5">Ваше ФИО</label>
+                    <div class="relative">
+                        <i class="fa-solid fa-user absolute left-3.5 top-3.5 text-slate-500"></i>
+                        <input type="text" id="auth-name" placeholder="Иванов Иван Иванович" class="w-full bg-slate-900 border border-slate-700 rounded-lg pl-10 pr-4 py-2.5 text-white focus:outline-none focus:border-emerald-500 text-sm">
                     </div>
                 </div>
 
                 <div>
-                    <label class="block text-xs font-semibold uppercase text-slate-400 mb-2">Исходный текст (Кириллица, включая Ё)</label>
-                    <textarea id="crypto-input" rows="3" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-4 text-white focus:outline-none focus:border-indigo-500 font-mono resize-none" placeholder="Введите текст для обработки..."></textarea>
+                    <label class="block text-xs font-semibold uppercase text-slate-400 mb-1.5">Логин (Email)</label>
+                    <div class="relative">
+                        <i class="fa-solid fa-envelope absolute left-3.5 top-3.5 text-slate-500"></i>
+                        <input type="email" id="auth-email" placeholder="student@university.edu" class="w-full bg-slate-900 border border-slate-700 rounded-lg pl-10 pr-4 py-2.5 text-white focus:outline-none focus:border-emerald-500 text-sm">
+                    </div>
                 </div>
 
-                <div class="flex justify-center">
-                    <button onclick="processCrypto()" class="bg-indigo-600 hover:bg-indigo-500 text-white font-medium py-3 px-8 rounded-lg transition active:scale-[0.98] shadow-lg shadow-indigo-600/20 cursor-pointer">
-                        Выполнить преобразование
-                    </button>
-                </div>
-
-                <div class="bg-slate-900 border border-slate-700 rounded-lg p-4 space-y-2">
-                    <span class="block text-xs font-semibold uppercase text-indigo-400">Результат работы алгоритма:</span>
-                    <div id="crypto-output" class="font-mono text-lg text-slate-200 break-all min-h-[1.75rem]">—</div>
+                <div>
+                    <label class="block text-xs font-semibold uppercase text-slate-400 mb-1.5">Пароль</label>
+                    <div class="relative">
+                        <i class="fa-solid fa-lock absolute left-3.5 top-3.5 text-slate-500"></i>
+                        <input type="password" id="auth-password" placeholder="••••••••" class="w-full bg-slate-900 border border-slate-700 rounded-lg pl-10 pr-4 py-2.5 text-white focus:outline-none focus:border-emerald-500 text-sm">
+                    </div>
                 </div>
             </div>
+
+            <button onclick="handleAuthSubmit()" id="auth-submit-btn" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-medium py-3 rounded-lg transition active:scale-[0.98] cursor-pointer text-sm">
+                Войти
+            </button>
+
+            <div class="text-center text-xs text-slate-400 pt-2 border-t border-slate-700/60">
+                <span id="auth-toggle-text">Ещё нет аккаунта?</span>
+                <button onclick="toggleAuthMode()" id="auth-toggle-btn" class="text-emerald-400 hover:underline ml-1 font-medium cursor-pointer">Создать аккаунт</button>
+            </div>
         </div>
+    </div>
 
-    </main>
+    <div id="app-content" class="invisible">
+        <header class="bg-slate-800 border-b border-slate-700 sticky top-0 z-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <i class="fa-solid fa-shield-halved text-emerald-400 text-2xl"></i>
+                    <span class="font-bold text-lg tracking-wide uppercase">ИБ Обучение</span>
+                </div>
+                <nav class="flex space-x-1">
+                    <button onclick="switchTab('dashboard')" id="btn-dashboard" class="px-4 py-2 rounded-md text-sm font-medium bg-emerald-600 text-white transition cursor-pointer">
+                        <i class="fa-solid fa-book-open mr-2"></i>Обучение
+                    </button>
+                    <button onclick="switchTab('crypto')" id="btn-crypto" class="px-4 py-2 rounded-md text-sm font-medium text-slate-300 hover:bg-slate-700 hover:text-white transition cursor-pointer">
+                        <i class="fa-solid fa-key mr-2"></i>Тренажер
+                    </button>
+                </nav>
+                <div class="flex items-center space-x-3">
+                    <span id="user-display-name" class="text-sm text-slate-400 hidden sm:inline">Студент: ФИО</span>
+                    <div id="user-avatar-letter" class="w-8 h-8 rounded-full bg-emerald-500 flex items-center justify-center font-bold text-slate-950 uppercase">С</div>
+                    <button onclick="logout()" class="text-slate-400 hover:text-rose-400 transition text-sm pl-2" title="Выйти">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                    </button>
+                </div>
+            </div>
+        </header>
 
-    <footer class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 mt-12 border-t border-slate-800 text-center text-xs text-slate-500">
-        &copy; 2026 Автоматизированная обучающая система по методам защиты информации. Дипломный проект.
-    </footer>
+        <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            
+            <div id="tab-dashboard" class="space-y-8">
+                <div class="border-l-4 border-emerald-500 pl-4">
+                    <h1 class="text-3xl font-extrabold tracking-tight">Курс: Methods of Information Protection</h1>
+                    <p class="text-slate-400 mt-1">Изучайте лекционные материалы и проходите автоматизированное тестирование.</p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    
+                    <div class="lg:col-span-2 bg-slate-800 border border-slate-700 rounded-xl p-6 shadow-xl">
+                        <div class="flex items-center justify-between border-b border-slate-700 pb-4 mb-4">
+                            <span class="text-xs font-semibold uppercase tracking-wider px-2.5 py-0.5 rounded bg-emerald-500/10 text-emerald-400">Модуль 1. Симметричное шифрование</span>
+                            <span class="text-sm text-slate-400"><i class="fa-regular fa-clock mr-1"></i> 15 мин</span>
+                        </div>
+                        <h2 class="text-2xl font-bold mb-4 text-white">Лекция 1.1: Классические шифры и шифр Цезаря</h2>
+                        <div class="prose prose-invert text-slate-300 space-y-4 leading-relaxed">
+                            <p>**Шифр Цезаря** — это один из самых древних и простых методов симметричного шифрования, относящийся к шифрам подстановки. Он назван в честь римского императора Гая Юлия Цезаря, который использовал его для секретной переписки.</p>
+                            <p>Принцип работы заключается в том, что каждый символ в тексте заменяется другим символом, смещенным по алфавиту на фиксированное количество позиций (шаг или ключ шифра).</p>
+                            <blockquote class="border-l-4 border-slate-600 pl-4 italic text-slate-400 my-4 bg-slate-800/50 py-2 pr-2">
+                                Например, при сдвиге (ключе) равном 3, буква "А" заменяется на "Г", "Б" на "Д", и так далее.
+                            </blockquote>
+                            <p>В современных реалиях шифр абсолютно ненадежен, так как легко взламывается методом простого перебора (криптоанализ методом brute force) или с помощью частотного анализа, ведь вариантов сдвига всего на один меньше, чем букв в алфавите.</p>
+                        </div>
+                    </div>
+
+                    <div class="space-y-6">
+                        <div class="bg-slate-800 border border-slate-700 rounded-xl p-6 shadow-xl">
+                            <h3 class="text-lg font-bold mb-3 flex items-center"><i class="fa-solid fa-chart-line text-emerald-400 mr-2"></i>Ваш прогресс</h3>
+                            <div class="w-full bg-slate-700 rounded-full h-2.5 mb-2">
+                                <div id="progress-bar" class="bg-emerald-500 h-2.5 rounded-full transition-all duration-500" style="width: 35%"></div>
+                            </div>
+                            <p id="progress-text" class="text-xs text-slate-400">Завершено модулей: 1 из 3 (35%)</p>
+                        </div>
+
+                        <div id="test-start-card" class="bg-slate-800 border border-slate-700 rounded-xl p-6 shadow-xl relative overflow-hidden">
+                            <div class="absolute top-0 right-0 p-3 opacity-10 text-6xl text-emerald-400"><i class="fa-solid fa-graduation-cap"></i></div>
+                            <h3 class="text-lg font-bold mb-2">Проверка знаний</h3>
+                            <p class="text-sm text-slate-400 mb-4">Пройдите автоматизированный тест по теме "Классические криптосистемы".</p>
+                            <ul class="text-xs text-slate-400 space-y-2 mb-4">
+                                <li><i class="fa-solid fa-check text-emerald-400 mr-1"></i> Кол-во вопросов: 3</li>
+                                <li><i class="fa-solid fa-check text-emerald-400 mr-1"></i> Ограничение: Нет</li>
+                            </ul>
+                            <button onclick="startTest()" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-medium py-2.5 px-4 rounded-lg transition active:scale-[0.98] cursor-pointer text-center block">
+                                Начать тестирование
+                            </button>
+                        </div>
+
+                        <div id="test-execution-card" class="hidden bg-slate-800 border border-emerald-500 rounded-xl p-6 shadow-xl space-y-4">
+                            <div class="flex justify-between items-center border-b border-slate-700 pb-2">
+                                <h3 class="font-bold text-emerald-400">Тестирование идет</h3>
+                                <span id="question-counter" class="text-xs bg-slate-700 px-2 py-1 rounded">Вопрос 1 из 3</span>
+                            </div>
+                            <p id="question-text" class="text-sm font-medium text-white">Загрузка вопроса...</p>
+                            <div id="answers-container" class="space-y-2 text-sm"></div>
+                            <button onclick="nextQuestion()" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-medium py-2 px-4 rounded-lg transition cursor-pointer">
+                                Ответить
+                            </button>
+                        </div>
+
+                        <div id="test-result-card" class="hidden bg-slate-800 border border-slate-700 rounded-xl p-6 shadow-xl text-center space-y-3">
+                            <div class="w-12 h-12 bg-emerald-500/20 text-emerald-400 rounded-full flex items-center justify-center mx-auto text-xl">
+                                <i class="fa-solid fa-award"></i>
+                            </div>
+                            <h3 class="text-lg font-bold text-white">Тест завершен!</h3>
+                            <p class="text-sm text-slate-300">Ваш результат: <span class="font-bold text-emerald-400" id="test-score">0%</span></p>
+                            <p class="text-xs text-slate-400">Оценка автоматически внесена в электронный журнал успеваемости.</p>
+                            <button onclick="resetTest()" class="text-xs text-emerald-400 hover:underline cursor-pointer">Пройти еще раз</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="tab-crypto" class="hidden space-y-8">
+                <div class="border-l-4 border-indigo-500 pl-4">
+                    <h1 class="text-3xl font-extrabold tracking-tight">Лабораторный тренажер</h1>
+                    <p class="text-slate-400 mt-1">Интерактивная визуализация работы алгоритмов шифрования данных.</p>
+                </div>
+
+                <div class="bg-slate-800 border border-slate-700 rounded-xl p-6 shadow-xl max-w-3xl mx-auto space-y-6">
+                    <div class="flex items-center space-x-3 border-b border-slate-700 pb-4">
+                        <i class="fa-solid fa-arrow-rotate-right text-indigo-400 text-xl"></i>
+                        <h2 class="text-xl font-bold">Шифр Цезаря (Алгоритм сдвига)</h2>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-semibold uppercase text-slate-400 mb-2">Шаг сдвига (Ключ)</label>
+                            <input type="number" id="crypto-key" value="3" min="1" max="32" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-indigo-500">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold uppercase text-slate-400 mb-2">Режим работы</label>
+                            <select id="crypto-mode" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-indigo-500">
+                                <option value="encrypt">Зашифровать текст</option>
+                                <option value="decrypt">Расшифровать текст</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-semibold uppercase text-slate-400 mb-2">Исходный текст (Кириллица, включая Ё)</label>
+                        <textarea id="crypto-input" rows="3" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-4 text-white focus:outline-none focus:border-indigo-500 font-mono resize-none" placeholder="Введите текст для обработки..."></textarea>
+                    </div>
+
+                    <div class="flex justify-center">
+                        <button onclick="processCrypto()" class="bg-indigo-600 hover:bg-indigo-500 text-white font-medium py-3 px-8 rounded-lg transition active:scale-[0.98] shadow-lg shadow-indigo-600/20 cursor-pointer">
+                            Выполнить преобразование
+                        </button>
+                    </div>
+
+                    <div class="bg-slate-900 border border-slate-700 rounded-lg p-4 space-y-2">
+                        <span class="block text-xs font-semibold uppercase text-indigo-400">Результат работы алгоритма:</span>
+                        <div id="crypto-output" class="font-mono text-lg text-slate-200 break-all min-h-[1.75rem]">—</div>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+
+        <footer class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 mt-12 border-t border-slate-800 text-center text-xs text-slate-500">
+            &copy; 2026 Автоматизированная обучающая система по методам защиты информации. Дипломный проект.
+        </footer>
+    </div>
 
     <script>
-        // Данные вопросов для полноценного теста
+        // --- ЛОГИКА АВТОРИЗАЦИИ И РЕГИСТРАЦИИ (LOCALSTORAGE) ---
+        let isSignUpMode = false;
+
+        // Проверка сессии при загрузке страницы
+        window.addEventListener('DOMContentLoaded', () => {
+            const currentUser = localStorage.getItem('currentUser');
+            if (currentUser) {
+                initApp(JSON.parse(currentUser));
+            }
+        });
+
+        function toggleAuthMode() {
+            isSignUpMode = !isSignUpMode;
+            const title = document.getElementById('auth-title');
+            const subtitle = document.getElementById('auth-subtitle');
+            const submitBtn = document.getElementById('auth-submit-btn');
+            const toggleText = document.getElementById('auth-toggle-text');
+            const toggleBtn = document.getElementById('auth-toggle-btn');
+            const nameField = document.getElementById('name-field-container');
+
+            if (isSignUpMode) {
+                title.innerText = "Регистрация";
+                subtitle.innerText = "Создайте аккаунт для сохранения прогресса";
+                submitBtn.innerText = "Зарегистрироваться";
+                toggleText.innerText = "Уже есть аккаунт?";
+                toggleBtn.innerText = "Войти";
+                nameField.classList.remove('hidden');
+            } else {
+                title.innerText = "Вход в систему";
+                subtitle.innerText = "Для доступа к обучающим материалам авторизуйтесь";
+                submitBtn.innerText = "Войти";
+                toggleText.innerText = "Ещё нет аккаунта?";
+                toggleBtn.innerText = "Создать аккаунт";
+                nameField.classList.add('hidden');
+            }
+        }
+
+        function handleAuthSubmit() {
+            const email = document.getElementById('auth-email').value.trim();
+            const password = document.getElementById('auth-password').value.trim();
+            const name = document.getElementById('auth-name').value.trim();
+
+            if (!email || !password || (isSignUpMode && !name)) {
+                alert("Пожалуйста, заполните все поля!");
+                return;
+            }
+
+            // Получаем список зарегистрированных пользователей
+            let users = JSON.parse(localStorage.getItem('registered_users')) || [];
+
+            if (isSignUpMode) {
+                // Регистрация
+                const userExists = users.some(u => u.email === email);
+                if (userExists) {
+                    alert("Пользователь с таким Email уже зарегистрирован!");
+                    return;
+                }
+
+                const newUser = { name, email, password };
+                users.push(newUser);
+                localStorage.setItem('registered_users', JSON.stringify(users));
+                localStorage.setItem('currentUser', JSON.stringify(newUser));
+                
+                alert("Регистрация успешна!");
+                initApp(newUser);
+            } else {
+                // Вход
+                const user = users.find(u => u.email === email && u.password === password);
+                if (!user) {
+                    alert("Неверный Email или пароль!");
+                    return;
+                }
+
+                localStorage.setItem('currentUser', JSON.stringify(user));
+                initApp(user);
+            }
+        }
+
+        function initApp(user) {
+            // Скрываем экран авторизации, показываем контент приложения
+            document.getElementById('auth-screen').classList.add('hidden');
+            const appContent = document.getElementById('app-content');
+            appContent.classList.remove('invisible');
+
+            // Подставляем имя и аватарку
+            document.getElementById('user-display-name').innerText = `Студент: ${user.name}`;
+            document.getElementById('user-avatar-letter').innerText = user.name.charAt(0);
+        }
+
+        function logout() {
+            localStorage.removeItem('currentUser');
+            location.reload(); // Перезагружаем страницу для сброса состояния
+        }
+
+
+        // --- ЛОГИКА ТЕСТОВ И ТРЕНАЖЕРА (БЕЗ ИЗМЕНЕНИЙ) ---
         const testQuestions = [
             {
                 question: "Какой метод криптоанализа наиболее эффективен против шифра Цезаря из-за малого объема ключевого пространства?",
@@ -186,16 +333,13 @@
         let currentQuestionIndex = 0;
         let correctAnswersCount = 0;
 
-        // Переключение между вкладками (Обучение / Тренажер)
         function switchTab(tabName) {
             const tabs = ['dashboard', 'crypto'];
             tabs.forEach(t => {
                 document.getElementById(`tab-${t}`).classList.add('hidden');
                 document.getElementById(`btn-${t}`).className = "px-4 py-2 rounded-md text-sm font-medium text-slate-300 hover:bg-slate-700 hover:text-white transition cursor-pointer";
             });
-
             document.getElementById(`tab-${tabName}`).classList.remove('hidden');
-            
             const activeBtn = document.getElementById(`btn-${tabName}`);
             if(tabName === 'dashboard') {
                 activeBtn.className = "px-4 py-2 rounded-md text-sm font-medium bg-emerald-600 text-white transition cursor-pointer";
@@ -204,7 +348,6 @@
             }
         }
 
-        // Управление модулем тестирования
         function startTest() {
             document.getElementById('test-start-card').classList.add('hidden');
             document.getElementById('test-execution-card').classList.remove('hidden');
@@ -217,11 +360,9 @@
             const qData = testQuestions[currentQuestionIndex];
             document.getElementById('question-counter').innerText = `Вопрос ${currentQuestionIndex + 1} из ${testQuestions.length}`;
             document.getElementById('question-text').innerText = qData.question;
-            
             const container = document.getElementById('answers-container');
             container.innerHTML = '';
-            
-            qData.answers.forEach((ans, index) => {
+            qData.answers.forEach((ans) => {
                 container.innerHTML += `
                     <label class="flex items-center p-3 bg-slate-800/60 border border-slate-700 rounded-lg hover:border-slate-500 cursor-pointer transition">
                         <input type="radio" name="q" value="${ans.correct}" class="text-emerald-500 focus:ring-emerald-500 bg-slate-900 border-slate-700 mr-3">
@@ -237,13 +378,8 @@
                 alert("Пожалуйста, выберите вариант ответа!");
                 return;
             }
-
-            if (selected.value === "true") {
-                correctAnswersCount++;
-            }
-
+            if (selected.value === "true") correctAnswersCount++;
             currentQuestionIndex++;
-
             if (currentQuestionIndex < testQuestions.length) {
                 renderQuestion();
             } else {
@@ -255,13 +391,10 @@
             document.getElementById('test-execution-card').classList.add('hidden');
             const resultCard = document.getElementById('test-result-card');
             const scoreElement = document.getElementById('test-score');
-            
             const percent = Math.round((correctAnswersCount / testQuestions.length) * 100);
             scoreElement.innerText = `${percent}% (${correctAnswersCount} из ${testQuestions.length})`;
-            
             if(percent >= 66) {
                 scoreElement.className = "font-bold text-emerald-400";
-                // Обновляем прогресс-бар, если тест пройден успешно
                 document.getElementById('progress-bar').style.width = '66%';
                 document.getElementById('progress-text').innerText = "Завершено модулей: 2 из 3 (66%)";
             } else {
@@ -275,27 +408,20 @@
             document.getElementById('test-start-card').classList.remove('hidden');
         }
 
-        // Логика шифратора Цезаря (Тренкодер)
         function processCrypto() {
             const text = document.getElementById('crypto-input').value;
             const key = parseInt(document.getElementById('crypto-key').value) || 0;
             const mode = document.getElementById('crypto-mode').value;
             const outputElement = document.getElementById('crypto-output');
-
             if(!text) {
                 outputElement.innerText = "Введите исходный текст!";
                 return;
             }
-
             const alphabet = "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ";
             const lowerAlphabet = alphabet.toLowerCase();
             let result = "";
-
             let shift = key % 33;
-            if (mode === 'decrypt') {
-                shift = (33 - shift) % 33;
-            }
-
+            if (mode === 'decrypt') shift = (33 - shift) % 33;
             for(let i = 0; i < text.length; i++) {
                 let char = text[i];
                 if (alphabet.includes(char)) {
@@ -308,7 +434,6 @@
                     result += char;
                 }
             }
-
             outputElement.innerText = result;
         }
     </script>
