@@ -112,9 +112,9 @@
                         <div class="bg-slate-800 border border-slate-700 rounded-xl p-6 shadow-xl">
                             <h3 class="text-lg font-bold mb-3 flex items-center"><i class="fa-solid fa-chart-line text-emerald-400 mr-2"></i>Ваш прогресс</h3>
                             <div class="w-full bg-slate-700 rounded-full h-2.5 mb-2">
-                                <div id="progress-bar" class="bg-emerald-500 h-2.5 rounded-full transition-all duration-500" style="width: 35%"></div>
+                                <div id="progress-bar" class="bg-emerald-500 h-2.5 rounded-full transition-all duration-500" style="width: 10%"></div>
                             </div>
-                            <p id="progress-text" class="text-xs text-slate-400">Завершено модулей: 1 из 3 (35%)</p>
+                            <p id="progress-text" class="text-xs text-slate-400">Текущий прогресс: 10% (Изучение материалов)</p>
                         </div>
 
                         <div id="test-start-card" class="bg-slate-800 border border-slate-700 rounded-xl p-6 shadow-xl relative overflow-hidden">
@@ -122,7 +122,7 @@
                             <h3 class="text-lg font-bold mb-2">Проверка знаний</h3>
                             <p class="text-sm text-slate-400 mb-4">Пройдите автоматизированный тест по теме "Классические криптосистемы".</p>
                             <ul class="text-xs text-slate-400 space-y-2 mb-4">
-                                <li><i class="fa-solid fa-check text-emerald-400 mr-1"></i> Кол-во вопросов: 3</li>
+                                <li><i class="fa-solid fa-check text-emerald-400 mr-1"></i> Кол-во вопросов: 10</li>
                                 <li><i class="fa-solid fa-check text-emerald-400 mr-1"></i> Ограничение: Нет</li>
                             </ul>
                             <button onclick="startTest()" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-medium py-2.5 px-4 rounded-lg transition active:scale-[0.98] cursor-pointer text-center block">
@@ -133,7 +133,7 @@
                         <div id="test-execution-card" class="hidden bg-slate-800 border border-emerald-500 rounded-xl p-6 shadow-xl space-y-4">
                             <div class="flex justify-between items-center border-b border-slate-700 pb-2">
                                 <h3 class="font-bold text-emerald-400">Тестирование идет</h3>
-                                <span id="question-counter" class="text-xs bg-slate-700 px-2 py-1 rounded">Вопрос 1 из 3</span>
+                                <span id="question-counter" class="text-xs bg-slate-700 px-2 py-1 rounded">Вопрос 1 из 10</span>
                             </div>
                             <p id="question-text" class="text-sm font-medium text-white">Загрузка вопроса...</p>
                             <div id="answers-container" class="space-y-2 text-sm"></div>
@@ -175,7 +175,7 @@
                         <div>
                             <label class="block text-xs font-semibold uppercase text-slate-400 mb-2">Режим работы</label>
                             <select id="crypto-mode" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-indigo-500">
-                                <option value="encrypt">Зашифровать текст</option>
+                                <option value="encrypt">Зашифровать text</option>
                                 <option value="decrypt">Расшифровать текст</option>
                             </select>
                         </div>
@@ -210,7 +210,6 @@
         // --- ЛОГИКА АВТОРИЗАЦИИ И РЕГИСТРАЦИИ (LOCALSTORAGE) ---
         let isSignUpMode = false;
 
-        // Проверка сессии при загрузке страницы
         window.addEventListener('DOMContentLoaded', () => {
             const currentUser = localStorage.getItem('currentUser');
             if (currentUser) {
@@ -254,11 +253,9 @@
                 return;
             }
 
-            // Получаем список зарегистрированных пользователей
             let users = JSON.parse(localStorage.getItem('registered_users')) || [];
 
             if (isSignUpMode) {
-                // Регистрация
                 const userExists = users.some(u => u.email === email);
                 if (userExists) {
                     alert("Пользователь с таким Email уже зарегистрирован!");
@@ -273,7 +270,6 @@
                 alert("Регистрация успешна!");
                 initApp(newUser);
             } else {
-                // Вход
                 const user = users.find(u => u.email === email && u.password === password);
                 if (!user) {
                     alert("Неверный Email или пароль!");
@@ -286,23 +282,21 @@
         }
 
         function initApp(user) {
-            // Скрываем экран авторизации, показываем контент приложения
             document.getElementById('auth-screen').classList.add('hidden');
             const appContent = document.getElementById('app-content');
             appContent.classList.remove('invisible');
 
-            // Подставляем имя и аватарку
             document.getElementById('user-display-name').innerText = `Студент: ${user.name}`;
             document.getElementById('user-avatar-letter').innerText = user.name.charAt(0);
         }
 
         function logout() {
             localStorage.removeItem('currentUser');
-            location.reload(); // Перезагружаем страницу для сброса состояния
+            location.reload();
         }
 
 
-        // --- ЛОГИКА ТЕСТОВ И ТРЕНАЖЕРА (БЕЗ ИЗМЕНЕНИЙ) ---
+        // --- ОБНОВЛЕННЫЙ МАССИВ ВОПРОСОВ (10 ВОПРОСОВ) ---
         const testQuestions = [
             {
                 question: "Какой метод криптоанализа наиболее эффективен против шифра Цезаря из-за малого объема ключевого пространства?",
@@ -326,6 +320,62 @@
                     { text: "Текст не изменится", correct: true },
                     { text: "Текст сместится на 1 позицию назад", correct: false },
                     { text: "Текст станет полностью нечитаемым", correct: false }
+                ]
+            },
+            {
+                question: "Как называется классический шифр, использующий матрицу символов и ключевое слово для шифрования пар букв (биграмм)?",
+                answers: [
+                    { text: "Шифр Плейфера (Playfair)", correct: true },
+                    { text: "Шифр Виженера", correct: false },
+                    { text: "Афинный шифр", correct: false }
+                ]
+            },
+            {
+                question: "В чем главное отличие шифр Виженера от шифра Цезаря?",
+                answers: [
+                    { text: "Виженер — это многоалфавитный шифр, использующий ключевое слово", correct: true },
+                    { text: "Виженер меняет буквы местами, а не подставляет их", correct: false },
+                    { text: "Шифр Виженера относится к асимметричным алгоритмам", correct: false }
+                ]
+            },
+            {
+                question: "Какой классический метод шифрования переставляет символы исходного текста по определенному правилу, не изменяя сами буквы?",
+                answers: [
+                    { text: "Шифр Цезаря", correct: false },
+                    { text: "Маршрутная перестановка (или «Магические квадраты»)", correct: true },
+                    { text: "Одноразовый блокнот (Шифр Вернама)", correct: false }
+                ]
+            },
+            {
+                question: "Какое свойство информации нарушается при несанкционированном изменении или удалении данных злоумышленником?",
+                answers: [
+                    { text: "Конфиденциальность", correct: false },
+                    { text: "Доступность", correct: false },
+                    { text: "Целостность", correct: true }
+                ]
+            },
+            {
+                question: "Какая классическая криптосистема теоретически обладает абсолютной криптографической стойкостью (не раскрываема)?",
+                answers: [
+                    { text: "Шифр Виженера с длинным ключом", correct: false },
+                    { text: "Шифр Вернама (Одноразовый блокнот) при соблюдении всех правил генерации ключа", correct: true },
+                    { text: "Шифр Атбаш", correct: false }
+                ]
+            },
+            {
+                question: "Как называется атака, при которой криптоаналитик имеет доступ и к зашифрованному, и к исходному (открытому) тексту?",
+                answers: [
+                    { text: "Атака на основе открытого текста (Known-plaintext attack)", correct: true },
+                    { text: "Атака только на основе шифротекста (Ciphertext-only attack)", correct: false },
+                    { text: "Атака «человек посередине» (MitM)", correct: false }
+                ]
+            },
+            {
+                question: "Что из перечисленного НЕ относится к базовой триаде информационной безопасности (ИБ)?",
+                answers: [
+                    { text: "Конфиденциальность", correct: false },
+                    { text: "Избыточность", correct: true },
+                    { text: "Доступность", correct: false }
                 ]
             }
         ];
@@ -392,13 +442,18 @@
             const resultCard = document.getElementById('test-result-card');
             const scoreElement = document.getElementById('test-score');
             const percent = Math.round((correctAnswersCount / testQuestions.length) * 100);
+            
             scoreElement.innerText = `${percent}% (${correctAnswersCount} из ${testQuestions.length})`;
-            if(percent >= 66) {
+            
+            // Если студент набрал больше половины правильных ответов
+            if(percent >= 50) {
                 scoreElement.className = "font-bold text-emerald-400";
-                document.getElementById('progress-bar').style.width = '66%';
-                document.getElementById('progress-text').innerText = "Завершено модулей: 2 из 3 (66%)";
+                document.getElementById('progress-bar').style.width = '100%';
+                document.getElementById('progress-text').innerText = "Завершено модулей: 3 из 3 (100% - Раздел пройден)";
             } else {
                 scoreElement.className = "font-bold text-rose-400";
+                document.getElementById('progress-bar').style.width = '40%';
+                document.getElementById('progress-text').innerText = "Тест не сдан (прогресс: 40%). Попробуйте еще раз.";
             }
             resultCard.classList.remove('hidden');
         }
@@ -408,6 +463,7 @@
             document.getElementById('test-start-card').classList.remove('hidden');
         }
 
+        // --- ЛОГИКА ТРЕНАЖЕРА (ШИФР ЦЕЗАРЯ С ПОДДЕРЖКОЙ «Ё») ---
         function processCrypto() {
             const text = document.getElementById('crypto-input').value;
             const key = parseInt(document.getElementById('crypto-key').value) || 0;
