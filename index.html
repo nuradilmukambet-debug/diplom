@@ -11,7 +11,6 @@
 
     <div id="auth-screen" class="fixed inset-0 bg-slate-950 z-[100] flex items-center justify-center p-4">
         <div class="bg-slate-800 border border-slate-700 w-full max-w-md rounded-2xl p-6 shadow-2xl space-y-6">
-            
             <div class="text-center space-y-2">
                 <div class="inline-flex p-3 bg-emerald-500/10 rounded-xl text-emerald-400 text-3xl mb-1">
                     <i class="fa-solid fa-shield-halved"></i>
@@ -86,25 +85,39 @@
             
             <div id="tab-dashboard" class="space-y-8">
                 <div class="border-l-4 border-emerald-500 pl-4">
-                    <h1 class="text-3xl font-extrabold tracking-tight">Курс: Methods of Information Protection</h1>
-                    <p class="text-slate-400 mt-1">Изучайте лекционные материалы и проходите автоматизированное тестирование.</p>
+                    <h1 class="text-3xl font-extrabold tracking-tight">Курс: Методы и средства защиты информации</h1>
+                    <p class="text-slate-400 mt-1">Изучайте лекционные материалы, переключаясь между темами, и проходите тестирование.</p>
                 </div>
 
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
                     
-                    <div class="lg:col-span-2 bg-slate-800 border border-slate-700 rounded-xl p-6 shadow-xl">
-                        <div class="flex items-center justify-between border-b border-slate-700 pb-4 mb-4">
-                            <span class="text-xs font-semibold uppercase tracking-wider px-2.5 py-0.5 rounded bg-emerald-500/10 text-emerald-400">Модуль 1. Симметричное шифрование</span>
-                            <span class="text-sm text-slate-400"><i class="fa-regular fa-clock mr-1"></i> 15 мин</span>
+                    <div class="lg:col-span-2 space-y-6">
+                        
+                        <div class="bg-slate-800 border border-slate-700 rounded-xl p-4 shadow-xl flex flex-wrap gap-2">
+                            <button onclick="switchLecture(0)" id="lecture-btn-0" class="px-3 py-2 text-xs font-medium rounded-lg bg-emerald-600 text-white transition">
+                                1.1 Шифр Цезаря
+                            </button>
+                            <button onclick="switchLecture(1)" id="lecture-btn-1" class="px-3 py-2 text-xs font-medium rounded-lg bg-slate-700 text-slate-300 hover:bg-slate-600 transition">
+                                1.2 Шифр Виженера
+                            </button>
+                            <button onclick="switchLecture(2)" id="lecture-btn-2" class="px-3 py-2 text-xs font-medium rounded-lg bg-slate-700 text-slate-300 hover:bg-slate-600 transition">
+                                2.1 Алгоритм RSA
+                            </button>
+                            <button onclick="switchLecture(3)" id="lecture-btn-3" class="px-3 py-2 text-xs font-medium rounded-lg bg-slate-700 text-slate-300 hover:bg-slate-600 transition">
+                                2.2 Хэш-функции и ЭЦП
+                            </button>
                         </div>
-                        <h2 class="text-2xl font-bold mb-4 text-white">Лекция 1.1: Классические шифры и шифр Цезаря</h2>
-                        <div class="prose prose-invert text-slate-300 space-y-4 leading-relaxed">
-                            <p>**Шифр Цезаря** — это один из самых древних и простых методов симметричного шифрования, относящийся к шифрам подстановки. Он назван в честь римского императора Гая Юлия Цезаря, который использовал его для секретной переписки.</p>
-                            <p>Принцип работы заключается в том, что каждый символ в тексте заменяется другим символом, смещенным по алфавиту на фиксированное количество позиций (шаг или ключ шифра).</p>
-                            <blockquote class="border-l-4 border-slate-600 pl-4 italic text-slate-400 my-4 bg-slate-800/50 py-2 pr-2">
-                                Например, при сдвиге (ключе) равном 3, буква "А" заменяется на "Г", "Б" на "Д", и так далее.
-                            </blockquote>
-                            <p>В современных реалиях шифр абсолютно ненадежен, так как легко взламывается методом простого перебора (криптоанализ методом brute force) или с помощью частотного анализа, ведь вариантов сдвига всего на один меньше, чем букв в алфавите.</p>
+
+                        <div class="bg-slate-800 border border-slate-700 rounded-xl p-6 shadow-xl">
+                            <div class="flex items-center justify-between border-b border-slate-700 pb-4 mb-4">
+                                <span id="lecture-module-title" class="text-xs font-semibold uppercase tracking-wider px-2.5 py-0.5 rounded bg-emerald-500/10 text-emerald-400">Модуль 1. Симметричное шифрование</span>
+                                <span class="text-sm text-slate-400"><i class="fa-regular fa-clock mr-1"></i> <span id="lecture-time">15 мин</span></span>
+                            </div>
+                            
+                            <h2 id="lecture-main-title" class="text-2xl font-bold mb-4 text-white">Лекция 1.1: Классические шифры и шифр Цезаря</h2>
+                            
+                            <div id="lecture-body" class="prose prose-invert text-slate-300 space-y-4 leading-relaxed">
+                                </div>
                         </div>
                     </div>
 
@@ -120,7 +133,7 @@
                         <div id="test-start-card" class="bg-slate-800 border border-slate-700 rounded-xl p-6 shadow-xl relative overflow-hidden">
                             <div class="absolute top-0 right-0 p-3 opacity-10 text-6xl text-emerald-400"><i class="fa-solid fa-graduation-cap"></i></div>
                             <h3 class="text-lg font-bold mb-2">Проверка знаний</h3>
-                            <p class="text-sm text-slate-400 mb-4">Пройдите автоматизированный тест по теме "Классические криптосистемы".</p>
+                            <p class="text-sm text-slate-400 mb-4">Пройдите автоматизированный тест по теме "Классические и современные криптосистемы".</p>
                             <ul class="text-xs text-slate-400 space-y-2 mb-4">
                                 <li><i class="fa-solid fa-check text-emerald-400 mr-1"></i> Кол-во вопросов: 10</li>
                                 <li><i class="fa-solid fa-check text-emerald-400 mr-1"></i> Ограничение: Нет</li>
@@ -175,7 +188,7 @@
                         <div>
                             <label class="block text-xs font-semibold uppercase text-slate-400 mb-2">Режим работы</label>
                             <select id="crypto-mode" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-indigo-500">
-                                <option value="encrypt">Зашифровать text</option>
+                                <option value="encrypt">Зашифровать текст</option>
                                 <option value="decrypt">Расшифровать текст</option>
                             </select>
                         </div>
@@ -207,6 +220,88 @@
     </div>
 
     <script>
+        // --- БАЗА ДАННЫХ ЛЕКЦИЙ ---
+        const lecturesData = [
+            {
+                module: "Модуль 1. Симметричное шифрование",
+                time: "15 мин",
+                title: "Лекция 1.1: Классические шифры и шифр Цезаря",
+                content: `
+                    <p><strong>Шифр Цезаря</strong> — это один из самых древних и простых методов симметричного шифрования, относящийся к шифрам подстановки. Он назван в честь римского императора Гая Юлия Цезаря, который использовал его для секретной переписки.</p>
+                    <p>Принцип работы заключается в том, что каждый символ в тексте заменяется другим символом, смещенным по алфавиту на фиксированное количество позиций (шаг или ключ шифра).</p>
+                    <blockquote class="border-l-4 border-emerald-500 pl-4 italic text-slate-400 my-4 bg-slate-900/50 py-2 px-3 rounded">
+                        Например, при сдвиге (ключе) равном 3, буква "А" заменяется на "Г", "Б" на "Д", и так далее.
+                    </blockquote>
+                    <p>В современных реалиях шифр абсолютно ненадежен, так как легко взламывается методом простого перебора (криптоанализ методом brute force) или с помощью частотного анализа, ведь вариантов сдвига всего на один меньше, чем букв в алфавите.</p>
+                `
+            },
+            {
+                module: "Модуль 1. Симметричное шифрование",
+                time: "20 мин",
+                title: "Лекция 1.2: Многоалфавитные шифры и шифр Виженера",
+                content: `
+                    <p><strong>Шифр Виженера</strong> представляет собой метод шифрования текста с использованием последовательности различных шифров Цезаря на основе букв ключевого слова. Этот шифр описывается как многоалфавитный.</p>
+                    <p>В отличие от моноалфавитных шифров (таких как шифр Цезаря), где одна и та же буква в исходном тексте всегда заменяется на одну и ту же букву в шифротексте, в шифре Виженера одинаковые буквы могут превращаться в разные символы в зависимости от их позиции.</p>
+                    <blockquote class="border-l-4 border-emerald-500 pl-4 italic text-slate-400 my-4 bg-slate-900/50 py-2 px-3 rounded">
+                        Для удобства шифрования используется специальная таблица (матрица) символов, называемая <strong>квадратом Виженера</strong> или таблицей тривиальных сдвигов.
+                    </blockquote>
+                    <p>Долгое время этот алгоритм считался неуязвимым ("Le Chiffre Indéchiffrable"). Однако в XIX веке Фридрих Касиски разработал метод определения длины ключа, что позволило успешно атаковать этот шифр криптоаналитическими методами.</p>
+                `
+            },
+            {
+                module: "Модуль 2. Асимметричные криптосистемы",
+                time: "25 мин",
+                title: "Лекция 2.1: Асимметричное шифрование и алгоритм RSA",
+                content: `
+                    <p>В <strong>асимметричных криптосистемах</strong> используются два ключа: один для шифрования (открытый или публичный), а другой для расшифрования (секретный или закрытый). Открытый ключ передается по незащищенному каналу связи, тогда как секретный ключ хранится в тайне.</p>
+                    <p>Самым популярным алгоритмом асимметричного шифрования является <strong>RSA</strong> (назван в честь создателей: Ривеста, Шамира и Адлемана). Его надежность базируется на вычислительной сложности задачи <strong>факторизации</strong> — разложения больших целых чисел на простые множители.</p>
+                    <blockquote class="border-l-4 border-emerald-500 pl-4 italic text-slate-400 my-4 bg-slate-900/50 py-2 px-3 rounded">
+                        Математическая основа RSA завязана на модульной арифметике, малой теореме Ферма и функции Эйлера. Манипуляции с ключами позволяют защитить данные от перехвата даже в публичной сети.
+                    </blockquote>
+                    <p>Основным недостатком асимметричных систем является их низкая скорость работы по сравнению с симметричными аналогами. Поэтому на практике их комбинируют: RSA используют для безопасной передачи сессионного ключа, а сами данные шифруют быстрыми алгоритмами вроде AES.</p>
+                `
+            },
+            {
+                module: "Модуль 2. Асимметричные криптосистемы",
+                time: "20 мин",
+                title: "Лекция 2.2: Хэш-функции и Электронная цифровая подпись (ЭЦП)",
+                content: `
+                    <p><strong>Криптографическая хэш-функция</strong> — это математический алгоритм, который преобразует входные данные произвольной длины в выходную битовую строку фиксированной длины (хэш-код или дайджест).</p>
+                    <p>Основные свойства правильной хэш-функции: необратимость (нельзя восстановить текст по хэшу) и стойкость к коллизиям (сложно найти два разных текста с одинаковым хэшем). Хэширование обеспечивает проверку <strong>целостности</strong> данных.</p>
+                    <blockquote class="border-l-4 border-emerald-500 pl-4 italic text-slate-400 my-4 bg-slate-900/50 py-2 px-3 rounded">
+                        <strong>Электронная цифровая подпись (ЭЦП)</strong> создается путем шифрования хэша документа закрытым (секретным) ключом автора.
+                    </blockquote>
+                    <p>Проверка ЭЦП принимающей стороной происходит с помощью открытого ключа автора. Она гарантирует авторство документа (неотрекаемость) и отсутствие изменений в файле после подписания.</p>
+                `
+            }
+        ];
+
+        // Функция переключения лекций
+        function switchLecture(index) {
+            const data = lecturesData[index];
+            
+            // Замена контента на экране
+            document.getElementById('lecture-module-title').innerText = data.module;
+            document.getElementById('lecture-time').innerText = data.time;
+            document.getElementById('lecture-main-title').innerText = data.title;
+            document.getElementById('lecture-body').innerHTML = data.content;
+            
+            // Обновление стилей кнопок навигатора лекций
+            for (let i = 0; i < lecturesData.length; i++) {
+                const btn = document.getElementById(`lecture-btn-${i}`);
+                if (i === index) {
+                    btn.className = "px-3 py-2 text-xs font-medium rounded-lg bg-emerald-600 text-white transition";
+                } else {
+                    btn.className = "px-3 py-2 text-xs font-medium rounded-lg bg-slate-700 text-slate-300 hover:bg-slate-600 transition";
+                }
+            }
+        }
+
+        // Инициализация первой лекции при загрузке страницы
+        window.addEventListener('DOMContentLoaded', () => {
+            switchLecture(0);
+        });
+
         // --- ЛОГИКА АВТОРИЗАЦИИ И РЕГИСТРАЦИИ (LOCALSTORAGE) ---
         let isSignUpMode = false;
 
@@ -295,8 +390,7 @@
             location.reload();
         }
 
-
-        // --- ОБНОВЛЕННЫЙ МАССИВ ВОПРОСОВ (10 ВОПРОСОВ) ---
+        // --- МАССИВ ВОПРОСОВ ДЛЯ ТЕСТИРОВАНИЯ ---
         const testQuestions = [
             {
                 question: "Какой метод криптоанализа наиболее эффективен против шифра Цезаря из-за малого объема ключевого пространства?",
@@ -331,7 +425,7 @@
                 ]
             },
             {
-                question: "В чем главное отличие шифр Виженера от шифра Цезаря?",
+                question: "В чем главное отличие шифра Виженера от шифра Цезаря?",
                 answers: [
                     { text: "Виженер — это многоалфавитный шифр, использующий ключевое слово", correct: true },
                     { text: "Виженер меняет буквы местами, а не подставляет их", correct: false },
@@ -339,11 +433,11 @@
                 ]
             },
             {
-                question: "Какой классический метод шифрования переставляет символы исходного текста по определенному правилу, не изменяя сами буквы?",
+                question: "На какой математической задаче основана криптостойкость асимметричного алгоритма RSA?",
                 answers: [
-                    { text: "Шифр Цезаря", correct: false },
-                    { text: "Маршрутная перестановка (или «Магические квадраты»)", correct: true },
-                    { text: "Одноразовый блокнот (Шифр Вернама)", correct: false }
+                    { text: "Дискретное логарифмирование", correct: false },
+                    { text: "Факторизация больших целых чисел (разложение на простые множители)", correct: true },
+                    { text: "Вычисление эллиптических кривых", correct: false }
                 ]
             },
             {
@@ -355,7 +449,7 @@
                 ]
             },
             {
-                question: "Какая классическая криптосистема теоретически обладает абсолютной криптографической стойкостью (не раскрываема)?",
+                question: "Какая классическая криптосистема теоретически обладает абсолютной криптографической стойкостью (нераскрываема)?",
                 answers: [
                     { text: "Шифр Виженера с длинным ключом", correct: false },
                     { text: "Шифр Вернама (Одноразовый блокнот) при соблюдении всех правил генерации ключа", correct: true },
@@ -363,11 +457,11 @@
                 ]
             },
             {
-                question: "Как называется атака, при которой криптоаналитик имеет доступ и к зашифрованному, и к исходному (открытому) тексту?",
+                question: "Как создается электронная цифровая подпись (ЭЦП) под документом?",
                 answers: [
-                    { text: "Атака на основе открытого текста (Known-plaintext attack)", correct: true },
-                    { text: "Атака только на основе шифротекста (Ciphertext-only attack)", correct: false },
-                    { text: "Атака «человек посередине» (MitM)", correct: false }
+                    { text: "Хэш документа шифруется открытым ключом автора", correct: false },
+                    { text: "Хэш документа шифруется закрытым (секретным) ключом автора", correct: true },
+                    { text: "Весь документ полностью шифруется симметричным алгоритмом", correct: false }
                 ]
             },
             {
@@ -445,7 +539,6 @@
             
             scoreElement.innerText = `${percent}% (${correctAnswersCount} из ${testQuestions.length})`;
             
-            // Если студент набрал больше половины правильных ответов
             if(percent >= 50) {
                 scoreElement.className = "font-bold text-emerald-400";
                 document.getElementById('progress-bar').style.width = '100%';
